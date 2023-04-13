@@ -2,22 +2,28 @@
 from sys import argv
 from datetime import datetime
 
+from hashlib import md5
+
 
 def get_input(filename: str):
     with open(filename, "r") as f:
-        _in = [line for line in f.read().split("\n") if line.split()]
-        # For 1 line inputs
-        # _in = f.read().replace("\n", "").strip()
+        _in = f.read().replace("\n", "").strip()
 
     return _in
 
 
 def part1(_in):
-    pass
+    i = 0
+    while md5((_in + str(i)).encode()).hexdigest()[:5] != "00000":
+        i += 1
+    return i
 
 
 def part2(_in):
-    pass
+    i = 0
+    while md5((_in + str(i)).encode()).hexdigest()[:6] != "000000":
+        i += 1
+    return i
 
 
 def benchmark(name: str, func, *_in) -> None:

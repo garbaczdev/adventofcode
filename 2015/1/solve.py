@@ -5,20 +5,20 @@ from datetime import datetime
 
 def get_input(filename: str):
     with open(filename, "r") as f:
-        _in = [line for line in f.read().split("\n") if line.split()]
-        # For 1 line inputs
-        # _in = f.read().replace("\n", "").strip()
-
+        _in = f.read().replace("\n", "").strip()
     return _in
 
 
 def part1(_in):
-    pass
+    return _in.count("(") - _in.count(")")
 
 
 def part2(_in):
-    pass
-
+    floor = 0
+    for index, char in enumerate(_in):
+        floor += 1 if char == "(" else -1
+        if floor == -1:
+            return index + 1
 
 def benchmark(name: str, func, *_in) -> None:
     now = datetime.now()

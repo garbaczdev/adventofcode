@@ -5,19 +5,28 @@ from datetime import datetime
 
 def get_input(filename: str):
     with open(filename, "r") as f:
-        _in = [line for line in f.read().split("\n") if line.split()]
-        # For 1 line inputs
-        # _in = f.read().replace("\n", "").strip()
+        _in = [[int(dim) for dim in line.split("x")] for line in f.read().split("\n") if line.split()]
 
     return _in
 
 
 def part1(_in):
-    pass
+    return sum(
+        2*l*w + 2*w*h + 2*h*l 
+        + min([l*w, w*h, h*l])
+        for (w, h, l)
+        in _in
+    )
 
 
 def part2(_in):
-    pass
+    return sum(
+        w*h*l
+        + sorted([w, h, l])[0]*2
+        + sorted([w, h, l])[1]*2
+        for (w, h, l)
+        in _in
+    )
 
 
 def benchmark(name: str, func, *_in) -> None:
