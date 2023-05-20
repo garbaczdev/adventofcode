@@ -48,6 +48,8 @@ def get_input(filename: str):
             if line.split()
         }
 
+    print(_in)
+
     return _in
 
 
