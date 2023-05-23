@@ -18,7 +18,7 @@ class Player:
         return Player(self.hit_points, self.damage, self.armor)
     
     def will_beat(self, other_player) -> bool:
-        print(self, other_player, self.get_kill_time(other_player), other_player.get_kill_time(self))
+        # print(self, other_player, self.get_kill_time(other_player), other_player.get_kill_time(self))
         return self.get_kill_time(other_player) <= other_player.get_kill_time(self)
 
     def get_kill_time(self, other_player) -> int:
@@ -101,7 +101,18 @@ def part1(_in):
 
 
 def part2(_in):
-    pass
+    boss, shop = _in
+    boss = boss.copy()
+
+    possible_players = generate_possible_players(shop)
+    possible_players.sort(key=lambda x: x[-1], reverse=True)
+
+    for player_data in possible_players:
+        player, items, cost = player_data
+        if not player.will_beat(boss):
+            return player_data
+
+    return None
 
 
 def benchmark(name: str, func, *_in) -> None:

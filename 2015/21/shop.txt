@@ -6,6 +6,7 @@ Longsword    40     7       0
 Greataxe     74     8       0
 
 Armor:      Cost  Damage  Armor
+Nothing-A     0     0       0
 Leather      13     0       1
 Chainmail    31     0       2
 Splintmail   53     0       3
@@ -13,6 +14,7 @@ Bandedmail   75     0       4
 Platemail   102     0       5
 
 Rings:      Cost  Damage  Armor
+Nothing-R     0     0       0
 Damage +1    25     1       0
 Damage +2    50     2       0
 Damage +3   100     3       0
