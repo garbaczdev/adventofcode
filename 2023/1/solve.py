@@ -34,47 +34,6 @@ def get_occurring_digits(line: str) -> dict:
     }
 
 
-# def transform_line(line: str) -> str:
-
-#     occurring_digits = get_occurring_digits(line)
-#     if not occurring_digits:
-#         return line
-
-#     occurring_digits = {word: min(occurrences) for word, occurrences in occurring_digits.items()}
-#     first_occurring_digit, first_occurring_digit_index = min(
-#         occurring_digits.items(), key=lambda x: x[1]
-#     )
-
-#     line = line[:first_occurring_digit_index] + str(WORDS_TO_DIGITS[first_occurring_digit]) + line[first_occurring_digit_index+len(first_occurring_digit):]
-    
-#     occurring_digits = get_occurring_digits(line)
-#     if not occurring_digits:
-#         return line
-#     occurring_digits = {word: max(occurrences) for word, occurrences in occurring_digits.items()}
-
-#     last_occurring_digit, last_occurring_digit_index = max(
-#         occurring_digits.items(), key=lambda x: x[1]
-#     )
-
-#     line = line[:last_occurring_digit_index] + str(WORDS_TO_DIGITS[last_occurring_digit]) + line[last_occurring_digit_index+len(last_occurring_digit):]
-
-#     print(line)
-
-#     # while occurring_digits:
-#     #     first_occurring_digit, first_occurring_digit_index = min(
-#     #         occurring_digits.items(), key=lambda x: x[1]
-#     #     )
-
-#     #     line = line[:first_occurring_digit_index] + str(WORDS_TO_DIGITS[first_occurring_digit]) + line[first_occurring_digit_index+len(first_occurring_digit):]
-#     #     print(line)
-#     #     occurring_digits = get_occurring_digits(line)
-
-#     # # for word, digit in WORDS_TO_DIGITS.items():
-#     # #     line = line.replace(word, str(digit))
-
-#     return line
-
-
 def get_first_digit(line: str) -> str:
     for index in range(len(line)):
         if is_int(line[index]):
