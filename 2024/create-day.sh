@@ -3,9 +3,9 @@
 [[ -z "$1" ]] && echo "No day provided" && exit 1
 day_number="$1"
 
-[[ ! -d "$script_dir/$day_number" ]] && echo "Day $day_number has already been created!" && exit 1
-
 script_dir=`cd "$(dirname "${BASH_SOURCE[0]}")" && pwd`
+[[ -d "$script_dir/$day_number" ]] && echo "Day $day_number has already been created!" && exit 1
+
 cookie=`cat ~/.secrets/aoc-cookie.txt`
 
 mkdir -p "$script_dir/$day_number"
