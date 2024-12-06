@@ -15,11 +15,23 @@ type Guard struct {
     DirectionY int
 }
 
+type Obstruction struct {
+    X int
+    Y int
+}
+
 func (guard Guard) Equals(otherGuard Guard) bool {
     return guard.PositionX == otherGuard.PositionX &&
         guard.PositionY == otherGuard.PositionY &&
         guard.DirectionX == otherGuard.DirectionX &&
         guard.DirectionY == otherGuard.DirectionY
+}
+
+func (guard Guard) GetObstruction() Obstruction {
+    return Obstruction{
+        X: guard.PositionX + guard.DirectionX,
+        Y: guard.PositionY + guard.DirectionY,
+    }
 }
 
 
@@ -125,24 +137,52 @@ func isGuardStuck(puzzleMap [][]byte, guard Guard) bool {
     return false
 }
 
-
 func part2(input string) {
-    puzzleMap, guard := parseInput(input)
+    puzzleMap, originalGuard := parseInput(input)
+    guard := originalGuard
+
+    // To optimize the number of checked places, I am running a check only
+    // on the path of the guard.
+    // Additionaly, I am saving which obstructions I have placed to avoid overlaps.
+    obstructionPlacedMap := make(map[Obstruction]bool)
+    obstructionPlacedMap[guard.GetObstruction()] = true
+
     possibleObstructionsCount := 0
-    for y, row := range puzzleMap {
-        for x, character := range row {
-            if guard.PositionX == x && guard.PositionY == y {
-                continue
-            }
-            if character == '.' {
-                puzzleMap[y][x] = '#'
-                if isGuardStuck(puzzleMap, guard) {
+
+    for {
+        nextX := guard.PositionX + guard.DirectionX
+        nextY := guard.PositionY + guard.DirectionY
+
+        // If out of bounds break
+        if !isInBounds(puzzleMap, nextX, nextY) {
+            break
+        }
+
+        if puzzleMap[nextY][nextX] == '.' {
+            // Calculate the position of the obstruction
+            obstruction := guard.GetObstruction()
+            // Has this obstruction been tried already?
+            _, obstructionPlaced := obstructionPlacedMap[obstruction]
+
+            if !obstructionPlaced {
+                obstructionPlacedMap[obstruction] = true
+
+                // Replace the puzzleMap and run a simulation
+                puzzleMap[obstruction.Y][obstruction.X] = '#'
+                if isGuardStuck(puzzleMap, originalGuard) {
                     possibleObstructionsCount++
                 }
-                puzzleMap[y][x] = '.'
+                puzzleMap[obstruction.Y][obstruction.X] = '.'
             }
+
+            guard.PositionX = nextX
+            guard.PositionY = nextY
+        } else {
+            guard.DirectionY, guard.DirectionX = guard.DirectionX, -guard.DirectionY
         }
     }
+
+    guard = originalGuard
 
     fmt.Printf("[Part 2] %d\n", possibleObstructionsCount)
 }
