@@ -1,24 +1,17 @@
 package main
 
 import (
-    // "fmt"
+    "fmt"
     "io"
     "os"
-    "log"
     "strings"
-    // "strconv"
-    // "sort"
+    "time"
 )
 
 
 func parseInput(input string) []int {
-    rawLines := strings.Split(input, "\n")
-    lines := make([]string, 0, len(rawLines))
-    for _, rawLine := range rawLines {
-        if strings.TrimSpace(rawLine) != "" {
-            lines = append(lines, rawLine)
-        }
-    }
+    input = strings.Trim(input, "\n")
+    // lines := strings.Split(input, "\n")
     return []int{}
 }
 
@@ -34,7 +27,7 @@ func part2(input string) {
 func getInput() string {
     inputBytes, err := io.ReadAll(os.Stdin)
     if err != nil || len(inputBytes) == 0 {
-        log.Fatal("No STDIN input is empty")
+        panic("No STDIN input is empty")
     }
     return string(inputBytes)
 }
@@ -42,6 +35,12 @@ func getInput() string {
 
 func main() {
     input := getInput()
+
+    start := time.Now()
     part1(input)
+    fmt.Printf("[Part 1] Elapsed time: %v\n", time.Since(start))
+
+    start = time.Now()
     part2(input)
+    fmt.Printf("[Part 2] Elapsed time: %v\n", time.Since(start))
 }
