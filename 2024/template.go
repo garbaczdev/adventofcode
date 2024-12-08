@@ -16,11 +16,13 @@ func parseInput(input string) []int {
 }
 
 
-func part1(input string) {
+func part1(input string) int {
+    return 0
 }
 
 
-func part2(input string) {
+func part2(input string) int {
+    return 0
 }
 
 
@@ -37,10 +39,10 @@ func main() {
     input := getInput()
 
     start := time.Now()
-    part1(input)
-    fmt.Printf("[Part 1] Elapsed time: %v\n", time.Since(start))
+    result1 := part1(input)
+    fmt.Printf("[Part 1][%v] %d\n", time.Since(start), result1)
 
     start = time.Now()
-    part2(input)
-    fmt.Printf("[Part 2] Elapsed time: %v\n", time.Since(start))
+    result2 := part2(input)
+    fmt.Printf("[Part 2][%v] %d\n", time.Since(start), result2)
 }
