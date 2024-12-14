@@ -2,102 +2,13 @@ package main
 
 import (
 	"fmt"
-	"io"
-	"os"
-	"strconv"
-	"strings"
 	"time"
+    common "aoc2024-14/common"
 )
 
-type Vector2D struct {
-    X int
-    Y int
-}
 
-func (v Vector2D) Add(vOther Vector2D) Vector2D {
-    return Vector2D{X: v.X + vOther.X, Y:v.Y + vOther.Y}
-}
-
-func (v Vector2D) Equals(vOther Vector2D) bool {
-    return v.X == vOther.X && v.Y == vOther.Y
-}
-
-type Robot struct {
-    Position Vector2D
-    Velocity Vector2D
-}
-
-func (r *Robot) Move(mapSize Vector2D) {
-    r.Position.X = (r.Position.X + r.Velocity.X + mapSize.X) % mapSize.X
-    r.Position.Y = (r.Position.Y + r.Velocity.Y + mapSize.Y) % mapSize.Y
-}
-
-func (r *Robot) MoveBack(mapSize Vector2D) {
-    r.Position.X = (r.Position.X - r.Velocity.X + mapSize.X) % mapSize.X
-    r.Position.Y = (r.Position.Y - r.Velocity.Y + mapSize.Y) % mapSize.Y
-}
-
-
-func parseInput(input string) []Robot {
-    input = strings.Trim(input, "\n")
-    lines := strings.Split(input, "\n")
-    robots := make([]Robot, 0, len(lines))
-    for _, line := range lines {
-        lineSplit := strings.Split(line, " ")
-
-        rightPart := strings.ReplaceAll(lineSplit[0], "p=", "")
-        rightPartSplit := strings.Split(rightPart, ",")
-        positionX, _ := strconv.Atoi(rightPartSplit[0])
-        positionY, _ := strconv.Atoi(rightPartSplit[1])
-
-        leftPart := strings.ReplaceAll(lineSplit[1], "v=", "")
-        leftPartSplit := strings.Split(leftPart, ",")
-        velocityX, _ := strconv.Atoi(leftPartSplit[0])
-        velocityY, _ := strconv.Atoi(leftPartSplit[1])
-
-        robots = append(robots, Robot{
-            Position: Vector2D{X: positionX, Y: positionY},
-            Velocity: Vector2D{X: velocityX, Y: velocityY},
-        })
-    }
-    
-    return robots
-}
-
-
-func getRobotsCountMap(robots []Robot, mapSize Vector2D) [][]int {
-    robotsCountMap := make([][]int, 0, mapSize.Y)
-    for range mapSize.Y {
-        robotsCountMap = append(robotsCountMap, make([]int, mapSize.X))
-    }
-    
-    for _, robot := range robots {
-        robotsCountMap[robot.Position.Y][robot.Position.X]++
-    }
-    
-    return robotsCountMap
-}
-
-
-func printMap(robots []Robot, mapSize Vector2D) {
-    robotsCountMap := getRobotsCountMap(robots, mapSize)
-    
-    for _, row := range robotsCountMap {
-        for _, count := range row {
-            if count == 0 {
-                fmt.Print(".")
-            } else {
-                fmt.Print(count)
-            }
-        }
-        fmt.Print("\n")
-    }
-    fmt.Print("\n")
-}
-
-
-func getSafetyFactor(robots []Robot, mapSize Vector2D) int {
-    robotsCountMap := getRobotsCountMap(robots, mapSize)
+func GetSafetyFactor(robots []common.Robot, mapSize common.Vector2D) int {
+    robotsCountMap := common.GetRobotsCountMap(robots, mapSize)
     quarterSafetyFactors := make([]int, 0, 4)
     
     // Iterate over the quarters
@@ -133,8 +44,8 @@ func getSafetyFactor(robots []Robot, mapSize Vector2D) int {
 
 func part1(input string) int {
 
-    robots := parseInput(input)
-    mapSize := Vector2D{X: 101, Y: 103}
+    robots := common.ParseInput(input)
+    mapSize := common.Vector2D{X: 101, Y: 103}
 
     for range 100 {
         // printMap(robots, mapSize)
@@ -143,22 +54,11 @@ func part1(input string) int {
         }
     }
 
-    // printMap(robots, mapSize)
-    return getSafetyFactor(robots, mapSize)
+    return GetSafetyFactor(robots, mapSize)
 }
-
-
-func getInput() string {
-    inputBytes, err := io.ReadAll(os.Stdin)
-    if err != nil || len(inputBytes) == 0 {
-        panic("No STDIN input is empty")
-    }
-    return string(inputBytes)
-}
-
 
 func main() {
-    input := getInput()
+    input := common.GetInput()
 
     start := time.Now()
     result1 := part1(input)
