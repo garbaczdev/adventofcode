@@ -29,10 +29,6 @@
 from sys import argv
 from datetime import datetime
 
-def get_input(filename: str):
-    with open(filename, "r") as f:
-        _in = f.read().strip("\n").strip().split(", ")
-    return _in
 
 def part1(_in):
     """
@@ -116,6 +112,11 @@ def part2(_in):
     
     # No location visited twice
     return None
+
+def get_input(filename: str):
+    with open(filename, "r") as f:
+        _in = f.read().strip("\n").strip().split(", ")
+    return _in
 
 def benchmark(name: str, func, *_in) -> None:
     """

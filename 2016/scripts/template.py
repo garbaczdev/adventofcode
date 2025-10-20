@@ -10,6 +10,14 @@ from sys import argv
 from datetime import datetime
 
 
+def part1(_in):
+    pass
+
+
+def part2(_in):
+    pass
+
+
 def get_input(filename: str):
     with open(filename, "r") as f:
         _in = [
@@ -18,14 +26,6 @@ def get_input(filename: str):
             if line.split()
         ]
     return _in
-
-
-def part1(_in):
-    pass
-
-
-def part2(_in):
-    pass
 
 
 def benchmark(name: str, func, *_in) -> None:
