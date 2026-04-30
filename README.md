@@ -4,15 +4,15 @@ This repository contains my solutions for [Advent of Code](https://adventofcode.
 
 ### 📊 Progress Tracking
 
-| Year | Language | Status |
-| :--- | :--- | :--- |
-| **2025** | Python | Completed |
-| **2024** | Go | Completed |
-| **2023** | Python | Completed |
-| **2022** | Python | Completed |
-| **2021** | Python | Completed (Legacy) |
-| **2016** | Python | In Progress |
-| **2015** | Python | Completed |
+| Date | Event Year | Language | Status |
+| :--- | :--- | :--- | :--- |
+| **2026** | 2016 | Python | In Progress |
+| **2025** | 2025 | Python | Completed |
+| **2025** | 2015 | Python | Completed |
+| **2024** | 2024 | Go     | Completed |
+| **2023** | 2023 | Python | Completed |
+| **2022** | 2022 | Python | Completed |
+| **2021** | 2021 | Python | Completed (Legacy) |
 
 > **Note on Completion:** For most years, I typically solve up to around **Day 20**. While I aim for the full 50 stars, those final high-difficulty days are reserved for when I have extra time!
 
